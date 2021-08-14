@@ -5,8 +5,9 @@ import ROUTE_PATHS from 'app/domains/allRoutePaths'
 function App() {
   return (
     <Switch>
-      {routes.map((route) => (
+      {routes.map((route, index) => (
         <Route
+          key={index}
           exact={route.exact}
           path={route.path}
           component={route.component}
