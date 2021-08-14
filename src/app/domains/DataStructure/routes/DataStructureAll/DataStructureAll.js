@@ -15,6 +15,8 @@ import { COLLECTIONS } from 'app/constants'
 import { message } from 'antd'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 import { PageLoading } from '~/app/components'
+import { generatePath, useHistory } from 'react-router-dom'
+import ROUTE_PATHS from '~/app/domains/allRoutePaths'
 
 function DataStructureAll() {
   // const dataStructures = [
@@ -31,10 +33,15 @@ function DataStructureAll() {
   const [dataStructures, dataStructuresLoading] = useCollectionData(
     getCollectionRef(COLLECTIONS.DATA_STRUCTURES)
   )
+  const history = useHistory()
 
   // [CLEAN FUNCTIONS]
   const openModal = () => {
     setModalVisibility(true)
+  }
+
+  const onDataStructureItemClick = (id) => {
+    history.push(generatePath(ROUTE_PATHS.DATA_STRUCTURE_SHOW, { id }))
   }
 
   const onStructureFormSubmit = async (params) => {
@@ -67,10 +74,13 @@ function DataStructureAll() {
         <Row noGutters>
           {dataStructures &&
             dataStructures?.map((item, index) => (
-              <Col cw={2} key={index}>
+              <Col
+                cw={2}
+                key={index}
+                onClick={() => onDataStructureItemClick(item.id)}>
                 <DataStructureSimpleView
-                  id={item.id}
-                  name={item.name}
+                  id={item?.id}
+                  name={item?.name}
                   onEdit={onStructureFormSubmit}
                 />
               </Col>

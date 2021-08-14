@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-// import theme from 'app/config/theme'
 import { Box } from '@qonsoll/react-design'
 
 export const CardItem = styled(Box)`

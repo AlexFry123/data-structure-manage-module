@@ -7,7 +7,7 @@ import {
 } from 'app/domains/DataStructure/components/DataStructureSimpleView/DataStructureSimpleView.styles'
 import { Dropdown, Menu, message, Popconfirm } from 'antd'
 import DataStructureModal from '../DataStructureModal'
-import { deleteDocument } from '~/services/Firebase/firestore'
+import { deleteDocument, getCollectionRef } from '~/services/Firebase/firestore'
 import { COLLECTIONS } from '~/app/constants'
 
 const { Item } = Menu
@@ -33,7 +33,10 @@ function DataStructureSimpleView(props) {
     setConfirmLoading(true)
     try {
       await deleteDocument(COLLECTIONS.DATA_STRUCTURES, id)
-      // TODO delete all connected entities
+      const modelsSnapshot = await getCollectionRef(COLLECTIONS.MODELS)
+        .where('dataStructureId', '==', id)
+        .get()
+      modelsSnapshot.forEach((item) => item.ref.delete())
       message.success('Successfully deleted data structure')
     } catch (err) {
       console.log(err)

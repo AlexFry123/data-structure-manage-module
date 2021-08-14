@@ -8,7 +8,7 @@ function DataStructureForm(props) {
         rules={[
           { required: true, message: 'Enter data structure name, please' }
         ]}>
-        <Input placeholder="Enter name" />
+        <Input autoFocus placeholder="Enter name" />
       </Form.Item>
     </Form>
   )

@@ -1,2 +1,5 @@
 import * as COLLECTIONS from './collections'
-export { COLLECTIONS }
+import DATA_TYPES from './dataTypes'
+import RELATION_TYPES from './relationTypes'
+
+export { COLLECTIONS, DATA_TYPES, RELATION_TYPES }
